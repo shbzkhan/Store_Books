@@ -144,9 +144,74 @@ const deleteBook = async(req, res)=>{
     }
 }
 
+const updateBook = async(req, res)=>{
+    try {
+        const id = req.params.id;
+        const {title, caption, rating} = req.body ||{}
+        const image = req.files?.image;
+
+        if(!image && !title && !caption && !rating){
+            return res.status(400).json({
+                success: false,
+                message: "Please provide minimum one field"
+            })
+        }
+        
+        const book = await Book.findById(id)
+
+        if(!book){
+            return res.status(400).json({
+                success: false,
+                message: "Books are not founded"
+            })
+        }
+
+        //authontication
+        if(book.user.toString() !== req.user._id.toString()){
+            return res.status(401).json({
+                success: false,
+                message:"Unauthorized"
+            })
+        }
+
+         if(image && book.image && book.image.includes("cloudinary")){
+
+
+                const url = book.image.split("/").pop().split(".")[0]
+                const publicId = `${process.env.CLOUDINARY_FOLDER_NAME}/` + url
+
+                const updateImage = await cloudinary.uploader.upload(image.tempFilePath, {public_id:publicId, overwrite:true, invalidate: true})
+                
+                
+                // if(update.result !== "ok"){
+                //     return res.status(404).json({
+                //         success: false,
+                //         message: "image are not deleted"
+                //     })
+                // }
+         }
+        
+        book.title = title || book.title;
+        book.caption = caption || book.caption;
+        book.rating = rating || book.rating
+
+        await book.save()
+        res.status(200).json({
+            success: true,
+            message: "post updated successfully"
+        })
+    } catch (error) {
+        console.error("book updation error!!! ",error.message)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
 
 export {
     createBook,
     getBooks,
-    deleteBook
+    deleteBook,
+    updateBook
 }
