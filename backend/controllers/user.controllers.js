@@ -27,7 +27,7 @@ const userRegister = async(req, res)=>{
         if(emailDetails){
             return res.status(401).json({
                 success: false,
-                message: "username already exist"
+                message: "email already exist"
             })
         }
 
@@ -91,7 +91,7 @@ const userLogin = async(req, res)=>{
 
         //send response
         res.status(200).json({
-            success: false,
+            success: true,
             message: "User logged-in successfully",
             token,
             user:{
