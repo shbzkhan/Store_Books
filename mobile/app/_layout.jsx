@@ -3,6 +3,7 @@ import "./global.css"
 import {useFonts} from "expo-font"
 import { useEffect } from "react";
 import GlobalProvider from "@/context/GlobalProvider"
+import { StatusBar } from "expo-status-bar";
 export default function RootLayout() {
 const [fontsLoaded] = useFonts({
   "Rubik-Bold": require("../assets/fonts/Rubik-Bold.ttf"),
@@ -22,6 +23,7 @@ useEffect(()=>{
 
   return (
     <GlobalProvider>
+      <StatusBar style="black" />
   <Stack screenOptions={{headerShown: false}}>
     <Stack.Screen name="(tabs)" />
     <Stack.Screen name="index" />

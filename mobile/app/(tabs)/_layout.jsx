@@ -21,7 +21,9 @@ const TabLayout = () => {
     return (
         <Tabs
             screenOptions={{
+            headerShown: false,
             tabBarShowLabel: false,
+            headerShadowVisible: false,
             tabBarStyle:{
                 backgroundColor:"white",
                 position: "absolute",
@@ -35,7 +37,6 @@ const TabLayout = () => {
                 name="home"
                 options={{
                     title:"Home",
-                    headerShown: false,
                     tabBarIcon:({focused})=>(
                         <TabIcon icon={icons.home} 
                         focused={focused}
@@ -49,7 +50,6 @@ const TabLayout = () => {
                 name="create"
                 options={{
                     title:"Create",
-                    headerShown: false,
                     tabBarIcon:({focused})=>(
                         <TabIcon icon={icons.create} 
                         focused={focused}
@@ -63,7 +63,6 @@ const TabLayout = () => {
                 name="profile"
                 options={{
                     title:"Profile",
-                    headerShown: false,
                     tabBarIcon:({focused})=>(
                         <TabIcon icon={icons.profile} 
                         focused={focused}

@@ -5,7 +5,9 @@ import deleteIcon from "../assets/icons/delete.png";
 import userPhoto from "../assets/icons/userphoto.png";
 import eye from "../assets/icons/eye.png";
 import eyeHide from "../assets/icons/eye-hide.png";
-
+import star from "../assets/icons/star.png";
+import starOutline from "../assets/icons/star-outline.png";
+import image from "../assets/icons/image-gallery.png";
 
 
 export default{
@@ -15,5 +17,8 @@ export default{
     deleteIcon,
     userPhoto,
     eye,
-    eyeHide
+    eyeHide,
+    star,
+    starOutline,
+    image
 }
