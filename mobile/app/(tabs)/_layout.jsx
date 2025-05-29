@@ -1,4 +1,4 @@
-import icons from "@/constants/icons"
+import icons from "../../constants/icons"
 import { Tabs } from "expo-router"
 import {View, Image,Text} from "react-native"
 

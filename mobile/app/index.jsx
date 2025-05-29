@@ -1,13 +1,13 @@
 import { Link, Redirect, router } from "expo-router";
 import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import logo from "@/assets/images/logo.png"
+import logo from "../assets/images/logo.png"
 import FormField from "../components/FormField"
 import CustomButton from "../components/CustomButton"
 import { useEffect, useState } from "react";
 import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useGlobalContext } from "@/context/GlobalProvider";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function Index() {
   const {isLoading, token} = useGlobalContext()

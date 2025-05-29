@@ -109,8 +109,32 @@ const userLogin = async(req, res)=>{
         })
     }
 }
+const userDetails = async(req, res)=>{
+    try {
+        const user = await User.findById(req.user._id).select("-password")
+
+        if(!user){
+            return res.status(500).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            data: user,
+            message: "User fetched"
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
+    }
+}
 
 export {
     userRegister,
     userLogin,
+    userDetails
 }

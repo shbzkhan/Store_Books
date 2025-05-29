@@ -1,7 +1,7 @@
 import { Link, router } from "expo-router";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import logo from "@/assets/images/logo.png"
+import logo from "../assets/images/logo.png"
 import FormField from "../components/FormField"
 import CustomButton from "../components/CustomButton"
 import { useState } from "react";
