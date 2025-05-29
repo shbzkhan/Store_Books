@@ -33,7 +33,6 @@ const GlobalProvider =({children})=>{
             setIsLoading(false)
         }
     } 
-    console.log("Current user: ", user)
 
     useEffect(()=>{
         currentUser()
