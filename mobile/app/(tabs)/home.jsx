@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import {useGlobalContext} from "../../context/GlobalProvider"
 import axios from "axios"
 import { SafeAreaView } from 'react-native-safe-area-context'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Home = () => {
-  const {token} = useGlobalContext()
+  // const {token} = useGlobalContext()
   const [books, setBooks] = useState([])
   const [loading, setLodaing] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -13,6 +14,7 @@ const Home = () => {
   const [hasMore, setHasMore] = useState(true)
 
   const fetchBooks = async(pageNum = 1, refresh = false)=>{
+    const token = await AsyncStorage.getItem("token")
     try {
       if(refresh) setRefreshing(true)
         else if(pageNum === 1) setLodaing(true)

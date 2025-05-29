@@ -5,11 +5,11 @@ import { Button } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useGlobalContext} from "../../context/GlobalProvider"
 const Profile = () => {
-  const {setToken} = useGlobalContext()
+  const {user, setUser} = useGlobalContext()
   
   const handleLogout = async()=>{
     await AsyncStorage.removeItem("token")
-    setToken(null)
+    setUser(null)
     router.replace("/")
   }
   return (

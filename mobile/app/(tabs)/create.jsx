@@ -8,13 +8,14 @@ import * as ImagePicker from "expo-image-picker"
 import axios from "axios"
 import {useGlobalContext} from "../../context/GlobalProvider"
 import { router } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 
 
 const Create = () => {
   const[isSubmiting, setIsSubmiting]= useState(false)
-    const {token} = useGlobalContext()
+    // const {token} = useGlobalContext()
   
   const [form, setForm]= useState({
     title:"",
@@ -27,6 +28,7 @@ const Create = () => {
   const handleBookCreate = async()=>{
     setIsSubmiting(true)
     try {
+      const token = await AsyncStorage.getItem("token")
       const formData = new FormData();
       formData.append("image",{
         uri: form.image.uri,
