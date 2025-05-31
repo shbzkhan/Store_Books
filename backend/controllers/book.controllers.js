@@ -49,8 +49,8 @@ const createBook = async(req, res)=>{
 const getBooks = async(req, res)=>{
     try {
         //pagination => infinite loading
-        const page = req.query.page;
-        const limit = req.query.limit;
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 2;
         const skip = (page -1)*limit
 
         const books = await Book.find()

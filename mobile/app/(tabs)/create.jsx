@@ -90,10 +90,10 @@ if(!result.canceled){
     }
 
   return (
-    <SafeAreaView className="h-full bg-white">
+    <SafeAreaView className="h-full bg-white pb-14">
       <ScrollView
       showsVerticalScrollIndicator={false}
-      className="px-4 mt-6 mb-20"
+      className="px-4 mt-6"
       >
           <Text className="text-3xl font-rubik-bold">Create a New Book</Text>
           
