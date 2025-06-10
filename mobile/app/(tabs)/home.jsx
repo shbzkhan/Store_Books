@@ -6,11 +6,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import icons from '../../constants/icons'
 import { formatPublicSince } from '../../constants/date'
+import CustomButton from "../../components/CustomButton"
+import { router } from 'expo-router'
 
 const Home = () => {
   // const {token} = useGlobalContext()
   const [books, setBooks] = useState([])
-  const [loading, setLodaing] = useState(true)
+  const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
@@ -19,7 +21,7 @@ const Home = () => {
     const token = await AsyncStorage.getItem("token")
     try {
       if(refresh) setRefreshing(true)
-        else if(pageNum === 1) setLodaing(true)
+        else if(pageNum === 1) setLoading(true)
 
         const {data} = await axios.get(`${process.env.EXPO_PUBLIC_MONGODB_URL}/book?page=${pageNum}&limit=2`,{
           headers:{
@@ -37,7 +39,7 @@ const Home = () => {
         Alert.alert("Error",error.response.data.message)
       } finally{
         if(refresh) setRefreshing(false);
-        else setLodaing(false)
+        else setLoading(false)
       }
     }
     
@@ -114,10 +116,14 @@ const handleRating = (rating)=>{
       }
 
       ListEmptyComponent={
-        <View>
-          <Text>No recommended yet</Text>
-          <Text>Be the first to share a book!</Text>
-        </View>
+        <View className='flex justify-center items-center px-4 mx-4 h-full bg-white rounded-2xl gap-2'>
+          <Text className="text-xl font-rubik-semibold">No recommended yet</Text>
+          <Text className="text-md font-rubik-medium color-gray-700 mb-4">Be the first to share a book!</Text>
+          <CustomButton
+              title="Create a Store Book"
+              handlePress={()=>router.push("/create")}
+          />
+          </View>
       }
       ListFooterComponent={
          hasMore && books.length > 0 ? (

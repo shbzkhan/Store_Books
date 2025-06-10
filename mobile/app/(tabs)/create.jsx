@@ -149,7 +149,7 @@ if(!result.canceled){
           textAlign="left"
         />
         <CustomButton
-        title="Login Store Book"
+        title="Upload Store Book"
         containerStyle="mt-7 mb-2"
          loading={isSubmiting}
          handlePress={handleBookCreate}
