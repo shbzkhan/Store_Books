@@ -1,5 +1,5 @@
 import { Link, Redirect, router } from "expo-router";
-import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Image, ScrollView, Text, View, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../assets/images/logo.png"
 import FormField from "../components/FormField"
@@ -42,6 +42,10 @@ if(isLoading){
   }
   return (
     <SafeAreaView className="h-full">
+      <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}
+            >
       <ScrollView
        contentContainerClassName="h-full w-full flex justify-center  px-4">
 
@@ -80,6 +84,7 @@ if(isLoading){
       <Link href="/sign-up" className="font-rubik-semibold text-lg text-blue-600">Register</Link>
       </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, Platform, Alert, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import FormField from "../../components/FormField"
@@ -91,6 +91,10 @@ if(!result.canceled){
 
   return (
     <SafeAreaView className="h-full bg-white pb-14">
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}
+      >
       <ScrollView
       showsVerticalScrollIndicator={false}
       className="px-4 mt-6"
@@ -155,6 +159,7 @@ if(!result.canceled){
          handlePress={handleBookCreate}
         />
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }

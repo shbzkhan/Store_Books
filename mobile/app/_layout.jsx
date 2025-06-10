@@ -23,7 +23,7 @@ useEffect(()=>{
 
   return (
     <GlobalProvider>
-      <StatusBar style="black" />
+      <StatusBar style="dark" />
   <Stack screenOptions={{headerShown: false}}>
     <Stack.Screen name="(tabs)" />
     <Stack.Screen name="index" />

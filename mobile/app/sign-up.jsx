@@ -1,5 +1,5 @@
 import { Link, router } from "expo-router";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../assets/images/logo.png"
 import FormField from "../components/FormField"
@@ -37,6 +37,10 @@ export default function SignUp() {
   }
   return (
     <SafeAreaView className="h-full">
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}
+            > 
       <ScrollView
        contentContainerClassName="h-full w-full flex justify-center px-4">
 
@@ -81,6 +85,7 @@ export default function SignUp() {
       <Link href="/" className="font-rubik-semibold text-lg text-blue-600">Login</Link>
       </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
