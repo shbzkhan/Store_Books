@@ -45,6 +45,7 @@ const Home = () => {
     
     useEffect(()=>{
       fetchBooks()
+      
     },[])
 
     const handleLoadMore = async()=>{
@@ -68,9 +69,7 @@ const handleRating = (rating)=>{
     return <View className="flex flex-row gap-2 items-center ">{stars}</View>
     }
     
-if(!user){
-  return router.replace("/")
-}
+
   if(loading)
       return (<ActivityIndicator
       size="large"
