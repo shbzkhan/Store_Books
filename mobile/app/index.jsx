@@ -1,7 +1,6 @@
 import { Link, Redirect, router } from "expo-router";
 import { ActivityIndicator, Alert, Image, ScrollView, Text, View, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import logo from "../assets/images/logo.png"
 import FormField from "../components/FormField"
 import CustomButton from "../components/CustomButton"
 import { useEffect, useState } from "react";
@@ -10,15 +9,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function Index() {
-  const {isLoading, token} = useGlobalContext()
-  const [isSubmiting, setIsSubmiting]= useState(false)
+  const {isLoading, token, user, setUser} = useGlobalContext()
+  const [isSubmitting, setIsSubmitting]= useState(false)
   const [form, setForm]= useState({
     email:"",
     password:""
   })
 
   const handleLogin = async()=>{
-    setIsSubmiting(true)
+    setIsSubmitting(true)
     try {
       const login={
         email: form.email,
@@ -27,17 +26,20 @@ export default function Index() {
       const {data} = await axios.post(`${process.env.EXPO_PUBLIC_MONGODB_URL}/auth/login`, login)
       await AsyncStorage.setItem("token", data.token);
       router.replace("/home")
+      setUser(data.user)
+      
     } catch (error) {
       Alert.alert("Error", error.response.data.message)
+      setUser(null)
     }finally{
-      setIsSubmiting(false)
+      setIsSubmitting(false)
     }
   }
 
 if(isLoading){
   return <ActivityIndicator size={"large"}/>
 }
-  if(!isLoading && token){
+  if(!isLoading && user){
     return <Redirect href="/home"/>
   }
   return (
@@ -73,10 +75,11 @@ if(isLoading){
         handleChangerText={(e)=>setForm({...form, password: e})}
         otherStyles="mt-7"
         />
+      
         <CustomButton
         title="Login Store Book"
         containerStyle="mt-7"
-        loading={isSubmiting}
+        loading={isSubmitting}
         handlePress={handleLogin}
         />
         <View className="flex flex-row gap-2 mt-4 justify-center">

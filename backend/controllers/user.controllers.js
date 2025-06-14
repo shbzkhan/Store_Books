@@ -35,7 +35,7 @@ const userRegister = async(req, res)=>{
             username,
             email,
             password,
-            avatar: `https://api.dicebear.com/9.x/initials/svg?seed=${username}`
+            avatar: `https://api.dicebear.com/9.x/initials/png?seed=${username}`
         })
 
         const token = generateToken(user._id)
@@ -47,7 +47,8 @@ const userRegister = async(req, res)=>{
                 _id:user._id,
                 username:user.username,
                 email:user.email,
-                avatar:user.avatar
+                avatar:user.avatar,
+                createdAt:user.createdAt
 
             }
         })
@@ -98,7 +99,8 @@ const userLogin = async(req, res)=>{
                 _id: user._id,
                 username:user.username,
                 email:user.email,
-                avatar:user.avatar
+                avatar:user.avatar,
+                createdAt:user.createdAt
             }
         })
 

@@ -209,9 +209,38 @@ const updateBook = async(req, res)=>{
     }
 }
 
+
+const userBooks = async(req, res)=>{
+    try {
+
+        const book = await Book.find({user: req.user._id })
+        .sort({createdAt: - 1})
+
+        if(!book){
+            return res.status(400).json({
+                success: false,
+                message: "User Books are not founded"
+            })
+        }
+        //res send
+        res.status(200).json({
+            success: true,
+            message: "User Books fetch successfully",
+            book,
+         
+        })
+    } catch (error) {
+        console.error("fetch books error!!! ",error.message)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
 export {
     createBook,
     getBooks,
     deleteBook,
-    updateBook
+    updateBook,
+    userBooks
 }

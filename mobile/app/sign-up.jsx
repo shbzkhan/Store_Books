@@ -7,17 +7,23 @@ import CustomButton from "../components/CustomButton"
 import { useState } from "react";
 import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function SignUp() {
+  const{ user, setUser} = useGlobalContext()
   // const [loading, setLoading] = useState(false)
-  const [isSubmiting, setIsSubmiting]= useState(false)
+  const [isSubmitting, setIsSubmitting]= useState(false)
+  const [error, setError] = useState(null)
   const [form, setForm]= useState({
     username:"",
     email:"",
     password:""
   })
   const handleRegister = async()=>{
-    setIsSubmiting(true)
+    if(form.username.length <6){
+      return Alert.alert("Error", "Username must be at least 6 letters")
+    }
+    setIsSubmitting(true)
         try {
             const signUp={
               username: form.username,
@@ -28,11 +34,13 @@ export default function SignUp() {
             await AsyncStorage.setItem("token", data.token);
             console.log("Token", data.token)
             router.replace("/home")
+            setUser(data.user)
             return Alert.alert("Success", data.message)
           } catch (error) {
-            Alert.alert("Error", error.response.data.message)
+            setError(error.response.data.message)
+            setUser(null)
           } finally{
-            setIsSubmiting(false)
+            setIsSubmitting(false)
           }
   }
   return (
@@ -74,10 +82,11 @@ export default function SignUp() {
         handleChangerText={(e)=>setForm({...form, password: e})}
         otherStyles="mt-7"
         />
+        
         <CustomButton
         title="Register Store Book"
         containerStyle="mt-7"
-        loading={isSubmiting}
+        loading={isSubmitting}
         handlePress={handleRegister}
         />
         <View className="flex flex-row gap-2 mt-4 justify-center">

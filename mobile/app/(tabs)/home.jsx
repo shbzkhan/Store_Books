@@ -10,7 +10,7 @@ import CustomButton from "../../components/CustomButton"
 import { router } from 'expo-router'
 
 const Home = () => {
-  // const {token} = useGlobalContext()
+  const {user} = useGlobalContext()
   const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -67,7 +67,10 @@ const handleRating = (rating)=>{
     )}
     return <View className="flex flex-row gap-2 items-center ">{stars}</View>
     }
-
+    
+if(!user){
+  return router.replace("/")
+}
   if(loading)
       return (<ActivityIndicator
       size="large"
@@ -99,11 +102,17 @@ const handleRating = (rating)=>{
           className="w-full h-60 rounded-2xl"
           />
           <View className="flex gap-2 px-2">
-          <Text className="font-rubik-semibold text-lg" >{item.title}</Text>
+          <Text className="font-rubik-semibold text-lg"
+            numberOfLines={1}
+            ellipsizeMode='tail'
+           >{item.title}</Text>
           <View>
           {handleRating(item.rating)}
           </View>
-          <Text className="font-rubik-medium text-md text-gray-600">{item.caption}</Text>
+          <Text className="font-rubik-medium text-md text-gray-600"
+            numberOfLines={2}
+            ellipsizeMode='tail'
+          >{item.caption}</Text>
           <Text className='font-rubik-semibold text-md text-gray-300'>Shared on {formatPublicSince(item.createdAt)}</Text>
         </View>
         </View>
@@ -116,13 +125,15 @@ const handleRating = (rating)=>{
       }
 
       ListEmptyComponent={
-        <View className='flex justify-center items-center px-4 mx-4 h-full bg-white rounded-2xl gap-2'>
+        <View className="h-full justify-center">
+        <View className='flex justify-center items-center px-4 mx-4 h-60 bg-white rounded-2xl gap-2'>
           <Text className="text-xl font-rubik-semibold">No recommended yet</Text>
           <Text className="text-md font-rubik-medium color-gray-700 mb-4">Be the first to share a book!</Text>
           <CustomButton
               title="Create a Store Book"
               handlePress={()=>router.push("/create")}
           />
+          </View>
           </View>
       }
       ListFooterComponent={
